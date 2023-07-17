@@ -5,7 +5,7 @@ import './TodoApp.css'
 export default function TodoApp() {
     return (
         <div className="TodoApp">
-            {/* <h1>Todo Management application</h1> */}
+            <HeaderComponent />
             <BrowserRouter> 
                 <Routes>
                     <Route path='/' element={<LoginComponent/>}></Route>
@@ -16,6 +16,7 @@ export default function TodoApp() {
                     <Route path='*' element={<ErrorComponent/>}></Route>
                 </Routes>
             </BrowserRouter>
+            <FooterComponent/>
         </div>
     )
 }
@@ -143,3 +144,19 @@ function ListTodoComponent() {
 }
 
 
+// header component
+function HeaderComponent() {
+    return (
+        <div className="header">
+            <h1>Header</h1> <hr />
+        </div>
+    )
+}
+
+function FooterComponent() {
+    return (
+        <div className="footer">
+            <hr /> <h1>Footer</h1>
+        </div>
+    )
+}
