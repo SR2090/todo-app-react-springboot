@@ -77,3 +77,19 @@ label, input, button {
     background-color: #0056b3;
   }
   
+
+
+/* Logout component styling from chat gpt */
+.logout-message {
+    background-color: #dff0d8;
+    border: 1px solid #d0e9c6;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .logout-text {
+    font-size: 18px;
+    color: #3c763d;
+  }
+  
