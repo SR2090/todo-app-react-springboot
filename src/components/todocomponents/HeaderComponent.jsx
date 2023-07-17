@@ -5,7 +5,13 @@ import { useContext} from 'react'
 export default function HeaderComponent() {
     // Intialize current component context with the context from AuthContext
     const getContext = useContextCustomHook();
-    console.log(getContext.authState)
+    console.log(getContext)
+    // Render elements based on authentication
+    const isAuthenticated = getContext.isAuthenticated;
+
+    function logoutHandler() {
+        getContext.setAuthenticated(false);
+    }
     return (
                <header className="border-bottom border-light border-5 mb-5 p-2">
             <div className="container">
@@ -14,13 +20,13 @@ export default function HeaderComponent() {
                         <a className="navbar-brand ms-2 fs-2 fw-bold text-black" href="https://www.in28minutes.com">in28minutes</a>
                         <div className="collapse navbar-collapse">
                             <ul className="navbar-nav">
-                                <li className="nav-item fs-5"><Link className="nav-link" to="/welcome/in28minutes">Home</Link></li>
-                                <li className="nav-item fs-5"><Link className="nav-link" to="/todos">Todos</Link></li>
+                                {isAuthenticated && <li className="nav-item fs-5"><Link className="nav-link" to="/welcome/in28minutes">Home</Link></li>}
+                                {isAuthenticated && <li className="nav-item fs-5"><Link className="nav-link" to="/todos">Todos</Link></li>}
                             </ul>
                         </div>
                         <ul className="navbar-nav">
-                            <li className="nav-item fs-5"><Link className="nav-link" to="/login">Login</Link></li>
-                            <li className="nav-item fs-5"><Link className="nav-link" to="/logout">Logout</Link></li>
+                            {!isAuthenticated && <li className="nav-item fs-5"><Link className="nav-link" to="/login">Login</Link></li>}
+                            {isAuthenticated && <li className="nav-item fs-5"><Link className="nav-link" to="/logout" onClick={logoutHandler}>Logout</Link></li>}
                         </ul>
                     </nav>
                 </div>

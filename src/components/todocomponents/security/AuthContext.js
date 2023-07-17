@@ -7,9 +7,12 @@ export const useContextCustomHook = () => useContext(AuthContext);
 export default function AuthProvider({children}) {
     const [authState, someAuthState] = useState("Authenticated")
 
-    setInterval(() => {someAuthState(authState + " 1 ")}, 10)
+    // Definining authentication state
+    const [isAuthenticated, setAuthenticated] = useState(false);
+
+    // setInterval(() => {someAuthState(authState + " 1 ")}, 10)
     return (
-        <AuthContext.Provider value= { {authState} }>
+        <AuthContext.Provider value= { {authState, isAuthenticated, setAuthenticated} }>
             {children}
         </AuthContext.Provider>
     )
