@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useContextCustomHook } from './security/AuthContext'
+import { useContextCustomHook, AuthProvider } from './security/AuthContext'
 // 1st component
 // functional component
 export default function LoginComponent() {
 
     const [username, setUserName] = useState("DefaultUserName")
     const [password, setPassword] = useState("")
-    const [isSuccess, setisSuccess] = useState(false);
     const [isError, setisError] = useState(false);
     
     // Access to auth context using the custom hook
@@ -30,23 +29,16 @@ export default function LoginComponent() {
         event.preventDefault();
         console.log(username);
         console.log(password);
-        if(username === 'babi' && password === "") {
-            authContextAccess.setAuthenticated(true);
-            // setisSuccess(true);
-            // setisError(false);
-            // on successful login navigate to /welcome endpoint
+        if(authContextAccess.loginTodo(username , password)){
             navigate(`/welcome/${username}`)
-        }else {
-            authContextAccess.setAuthenticated(false);
-            // setisSuccess(false);
-            // setisError(true);
+        }else{
+            setisError(true);
         }
     }
 
     return (
         <div className="Login">
-                {authContextAccess.isAuthenticated && <div className="successMessage">Login is successful</div>}
-                {authContextAccess.isAuthenticated && <div className="failureMessage">Login has failed</div>}
+                {isError && <div className="failureMessage">Login has failed</div>}
             <form onSubmit={handleFormSubmit}>
                 <label> User Name </label>
                 <input type="text" name="username" value={username} onChange={handleUserNameChange}/><br/>

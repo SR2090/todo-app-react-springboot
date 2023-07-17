@@ -9,9 +9,6 @@ export default function HeaderComponent() {
     // Render elements based on authentication
     const isAuthenticated = getContext.isAuthenticated;
 
-    function logoutHandler() {
-        getContext.setAuthenticated(false);
-    }
     return (
                <header className="border-bottom border-light border-5 mb-5 p-2">
             <div className="container">
@@ -26,7 +23,7 @@ export default function HeaderComponent() {
                         </div>
                         <ul className="navbar-nav">
                             {!isAuthenticated && <li className="nav-item fs-5"><Link className="nav-link" to="/login">Login</Link></li>}
-                            {isAuthenticated && <li className="nav-item fs-5"><Link className="nav-link" to="/logout" onClick={logoutHandler}>Logout</Link></li>}
+                            {isAuthenticated && <li className="nav-item fs-5"><Link className="nav-link" to="/logout" onClick={getContext.logoutTodo}>Logout</Link></li>}
                         </ul>
                     </nav>
                 </div>
