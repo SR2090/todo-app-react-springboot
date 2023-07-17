@@ -9,4 +9,4 @@ export default function FooterComponent() {
             <hr /> <h1>Footer</h1>
         </div>
     )
-}
+} 
