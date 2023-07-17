@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route, useNavigate, useParams } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate, useParams, Link } from 'react-router-dom'
 import './TodoApp.css'
 
 export default function TodoApp() {
@@ -83,7 +83,9 @@ function WelcomeComponent() {
         <div className="welcome-screen">
         <h1 className="welcome-heading">Welcome, <span className="username">{username}</span>!</h1>
         <p className="welcome-message">We're glad to have you here.</p>
-        <button className="start-button">Get Started</button>
+        <Link to={'/todos'}>
+            <button className="start-button">Get Started</button>
+        </Link>
         </div>
     )
 }
@@ -139,3 +141,5 @@ function ListTodoComponent() {
         </div>
       )
 }
+
+
