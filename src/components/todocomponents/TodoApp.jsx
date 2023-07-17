@@ -1,14 +1,19 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
 import './TodoApp.css'
 
 export default function TodoApp() {
     return (
         <div className="TodoApp">
             {/* <h1>Todo Management application</h1> */}
-            BrowserRouter
-            <LoginComponent /> 
-            <WelcomeComponent />
+            <BrowserRouter> 
+                <Routes>
+                    <Route path='/' element={<LoginComponent/>}></Route>
+                    <Route path='/login' element={<LoginComponent/>}></Route>
+                    <Route path='/welcome' element={<WelcomeComponent/>}></Route>
+                    <Route path='*' element={<ErrorComponent/>}></Route>
+                </Routes>
+            </BrowserRouter>
         </div>
     )
 }
@@ -22,6 +27,9 @@ function LoginComponent() {
     const [password, setPassword] = useState("")
     const [isSuccess, setisSuccess] = useState(false);
     const [isError, setisError] = useState(false);
+
+    // navigate state to route to welcome endpoint on successful login
+    const navigate = useNavigate();
 
     function handleUserNameChange(event) {
         // console.log("", event.target.value)
@@ -40,6 +48,8 @@ function LoginComponent() {
         if(username === 'babi' && password === "") {
             setisSuccess(true);
             setisError(false);
+            // on successful login navigate to /welcome endpoint
+            navigate('/welcome')
         }else {
             setisSuccess(false);
             setisError(true);
@@ -68,6 +78,17 @@ function WelcomeComponent() {
     return (
         <div className="Welcome">
             Welcome Component
+        </div>
+    )
+}
+
+
+function ErrorComponent() {
+    return (
+        <div className="error-message">
+            <img src="error-icon.png" alt="Error Icon" className="error-icon"></img>
+            <h2 className="error-heading">Oops! Something went wrong.</h2>
+            <p className="error-description">We apologize for the inconvenience. Please try again later.</p>
         </div>
     )
 }
