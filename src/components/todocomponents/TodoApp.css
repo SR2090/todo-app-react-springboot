@@ -38,3 +38,42 @@ label, input, button {
     margin-top: 10px;
   }
   
+
+/* Chat gpt css for welcome screen */
+.welcome-screen {
+    background-color: #f1f1f1;
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .welcome-heading {
+    font-size: 32px;
+    color: #333;
+  }
+  
+  .username {
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  .welcome-message {
+    font-size: 18px;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  .start-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .start-button:hover {
+    background-color: #0056b3;
+  }
+  
