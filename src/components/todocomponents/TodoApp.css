@@ -92,4 +92,27 @@ label, input, button {
     font-size: 18px;
     color: #3c763d;
   }
+
+/* Error message for routing component in Todoapp */
+.success-message {
+  width: 300px;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #E6F0FF;
+  border: 1px solid #99C2FF;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.success-message h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.success-message p {
+  font-size: 18px;
+  color: #666;
+}
+
   
