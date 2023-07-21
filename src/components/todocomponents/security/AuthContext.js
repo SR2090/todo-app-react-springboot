@@ -12,9 +12,11 @@ export default function AuthProvider({children}) {
 
     // Definining authentication state
     const [isAuthenticated, setAuthenticated] = useState(false);
+
+    const [todoListGivenUsername, setTodoListGivenUsername] = useState([]);
     
     function loginTodo(username, password) {
-        if(username != "" && password != "") {
+        if(username !== "" && password !== "") {
             setAuthenticated(true);
             return true;
         }else {
@@ -28,7 +30,7 @@ export default function AuthProvider({children}) {
     }
     // setInterval(() => {someAuthState(authState + " 1 ")}, 10)
     return (
-        <AuthContext.Provider value= { {authState, isAuthenticated, setAuthenticated, loginTodo, logoutTodo} }>
+        <AuthContext.Provider value= { {authState, isAuthenticated, todoListGivenUsername, setAuthenticated, loginTodo, logoutTodo, setTodoListGivenUsername} }>
             {children}
         </AuthContext.Provider>
     )

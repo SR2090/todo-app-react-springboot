@@ -1,11 +1,10 @@
-import {Link, useParams } from 'react-router-dom'
-import axios from 'axios';
+import { Link, useParams } from 'react-router-dom';
+import {callHelloWorldRestApi} from "./ApiCalloutComponent/ApiCallout";
 export default function WelcomeComponent() {
     const {username} = useParams();
 
-    function callHelloWorldRestApi() {
-        // console.log("Call")
-        axios.get("http://localhost:8080/hello-world")
+    function helloWorldCallOut() {
+        callHelloWorldRestApi()
         .then((response) => {console.log(response.data);})
         .catch((error) => console.log(error))    
         .finally(console.log("Finally block"));
@@ -20,7 +19,7 @@ export default function WelcomeComponent() {
             <button className="start-button">Get Started</button>
         </Link>
         <div className="container">
-            <button className="hello-button" onClick={callHelloWorldRestApi}>Hello World REST</button>
+            <button className="hello-button" onClick={helloWorldCallOut}>Hello World REST</button>
         </div>
         </div>
     )

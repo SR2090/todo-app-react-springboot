@@ -1,14 +1,24 @@
-export default function ListTodoComponent() {
-    const today = new Date();
-    const targetDate = new Date(today.getFullYear() + 12, today.getMonth() + 1, today.getDate());
-    const todos = [
-        { id: 1, name: 'Complete assignment', isDone : false, targetDate : targetDate },
-        { id: 2, name: 'Go grocery shopping', isDone : false, targetDate : targetDate },
-        { id: 3, name: 'Call a friend', isDone : false, targetDate : targetDate },
-        { id: 4, name: 'Read a book', isDone : false, targetDate : targetDate },
-        { id: 5, name: 'Exercise for 30 minutes', isDone : false, targetDate : targetDate },
-      ];
+import { useState, useEffect } from "react";
+import { listAllTodosForAGivenUsername } from "./ApiCalloutComponent/ApiCallout";
 
+
+export default function ListTodoComponent() {
+      const [todos, setTodo] = useState([]);
+    
+      function callTodos() {
+      listAllTodosForAGivenUsername("a")
+      .then((response) => {
+          console.log(response.data);
+          setTodo(response.data);
+      })
+      .catch((error) => console.log(error))    
+      .finally(console.log("Finally block"))
+      }
+  
+        useEffect( () => {
+          callTodos();
+        }, []); 
+  
 
       return (
         <div className='container'>
@@ -16,19 +26,19 @@ export default function ListTodoComponent() {
             <table className='table'>
             <thead>
                 <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>IsDone ?</th>
-                <th>Target Date</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Completed</th>
+                    <th>Target Date</th>
                 </tr>
             </thead>
             <tbody>
                 {todos && todos.map(todo =>
                     <tr key={todo.id}>
-                        <td>{todo.id}</td>
-                        <td>{todo.name}</td>
-                        <td>{todo.isDone.toString()}</td>
-                        <td>{todo.targetDate.toDateString()}</td>
+                        <td>{todo.username}</td>
+                        <td>{todo.description}</td>
+                        <td>{todo.done.toString()}</td>
+                        <td>{todo.targetDate}</td>
                     </tr>
                 )}
             </tbody>

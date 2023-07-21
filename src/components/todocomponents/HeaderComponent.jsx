@@ -5,7 +5,7 @@ import { useContext} from 'react'
 export default function HeaderComponent() {
     // Intialize current component context with the context from AuthContext
     const getContext = useContextCustomHook();
-    console.log(getContext)
+    // console.log(getContext)
     // Render elements based on authentication
     const isAuthenticated = getContext.isAuthenticated;
 
