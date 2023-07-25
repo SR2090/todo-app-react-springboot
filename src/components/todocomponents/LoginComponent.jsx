@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useContextCustomHook, AuthProvider } from './security/AuthContext'
+import { useContextCustomHook } from './security/AuthContext';
 
 
 // 1st component
 // functional component
 export default function LoginComponent() {
 
-    const [username, setUserName] = useState("DefaultUserName")
-    const [password, setPassword] = useState("")
+    const [username, setUserName] = useState("babi")
+    const [password, setPassword] = useState("password")
     const [isError, setisError] = useState(false);
     
     // Access to auth context using the custom hook
@@ -29,8 +29,8 @@ export default function LoginComponent() {
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        console.log(username);
-        console.log(password);
+        // console.log(username);
+        // console.log(password);
         if(authContextAccess.loginTodo(username , password)){
             navigate(`/welcome/${username}`)
         }else{

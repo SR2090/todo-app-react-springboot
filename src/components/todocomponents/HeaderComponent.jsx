@@ -1,6 +1,5 @@
-import {Link } from 'react-router-dom'
-import { useContextCustomHook } from './security/AuthContext'
-import { useContext} from 'react'
+import { Link } from 'react-router-dom';
+import { useContextCustomHook } from './security/AuthContext';
 // header component
 export default function HeaderComponent() {
     // Intialize current component context with the context from AuthContext
@@ -15,7 +14,7 @@ export default function HeaderComponent() {
                 <div className="row">
                     <nav className="navbar navbar-expand-lg">
                         <a className="navbar-brand ms-2 fs-2 fw-bold text-black" href="https://www.in28minutes.com">in28minutes</a>
-                        <div className="collapse navbar-collapse">
+                        <div className="collapse navbar-collapse"> 
                             <ul className="navbar-nav">
                                 {isAuthenticated && <li className="nav-item fs-5"><Link className="nav-link" to="/welcome/in28minutes">Home</Link></li>}
                                 {isAuthenticated && <li className="nav-item fs-5"><Link className="nav-link" to="/todos">Todos</Link></li>}
@@ -31,3 +30,5 @@ export default function HeaderComponent() {
         </header>
     )
 }
+
+// `/todos/${username}`

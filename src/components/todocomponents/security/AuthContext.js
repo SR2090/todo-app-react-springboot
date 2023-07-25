@@ -1,4 +1,6 @@
 import {createContext, useContext, useState} from "react"
+import {executeBasicAuthenticationService} from "../ApiCalloutComponent/ApiCallout";
+import { apiClient } from "../ApiCalloutComponent/ApiClient";
 // Create a context
 export const AuthContext = createContext();
 export const useContextCustomHook = () => useContext(AuthContext);
@@ -14,10 +16,17 @@ export default function AuthProvider({children}) {
     const [isAuthenticated, setAuthenticated] = useState(false);
 
     const [todoListGivenUsername, setTodoListGivenUsername] = useState([]);
+
+    const [username, setUserName] = useState("DefaultUserName");
+
+    const [basicAuthenticationToken, setBasicAuthenticationToken] = useState('');
     
-    function loginTodo(username, password) {
+    function oldLoginTodo(username, password) {
         if(username !== "" && password !== "") {
+            
+            setBasicAuthenticationToken(basicAuthenticationToken);
             setAuthenticated(true);
+            setUserName(username);
             return true;
         }else {
             setAuthenticated(false);
@@ -25,12 +34,45 @@ export default function AuthProvider({children}) {
         }
     }
 
+    async function loginTodo(username, password) {
+        const basicAuthenticationToken = `Basic ` + window.btoa(username + ":" + password);
+        try{
+            const authResponse = await executeBasicAuthenticationService(basicAuthenticationToken);
+        
+            if(authResponse.data === "Success") {
+                console.log("EXECUTED "+ authResponse.data)
+                setAuthenticated(true);
+                setUserName(username);
+                setBasicAuthenticationToken(basicAuthenticationToken);
+                
+                apiClient.interceptors.request.use(
+                    (config) => {
+                        console.log('intercepting and adding token')
+                        config.headers.Authorization = basicAuthenticationToken;
+                        return config;
+                    }
+                )
+                
+                return true;
+            }else{
+                console.log("EXECUTED ELSE BLOCK " + authResponse.data)
+                logoutTodo()
+                return false;
+            }
+        }catch(response) {
+            console.log(response);
+            logoutTodo()
+        }
+    }
+
     function logoutTodo(){
         setAuthenticated(false);
+        setUserName(null);
+        setBasicAuthenticationToken(null);
     }
     // setInterval(() => {someAuthState(authState + " 1 ")}, 10)
     return (
-        <AuthContext.Provider value= { {authState, isAuthenticated, todoListGivenUsername, setAuthenticated, loginTodo, logoutTodo, setTodoListGivenUsername} }>
+        <AuthContext.Provider value= { {authState, isAuthenticated, todoListGivenUsername, username, basicAuthenticationToken, setAuthenticated, loginTodo, logoutTodo, setTodoListGivenUsername} }>
             {children}
         </AuthContext.Provider>
     )

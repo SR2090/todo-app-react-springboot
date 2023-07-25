@@ -135,3 +135,26 @@ label, input, button {
 .hello-button:hover {
   background-color: #45a049;
 }
+
+
+/* Delete Button */
+/* Styling for the delete button */
+.delete-button {
+  background-color: #4CAF50; /* Green background color */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Add some padding to make the button look nicer */
+  border: none; /* Remove default button border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to indicate it's clickable */
+  font-size: 16px; /* Set font size */
+}
+
+/* Hover effect */
+.delete-button:hover {
+  background-color: #45a049; /* Slightly darker green on hover */
+}
+
+/* Active effect when button is clicked */
+.delete-button:active {
+  background-color: #3e8e41; /* Even darker green when clicked */
+}

@@ -15,7 +15,7 @@ export default function WelcomeComponent() {
         <div className="welcome-screen">
         <h1 className="welcome-heading">Welcome, <span className="username">{username}</span>!</h1>
         <p className="welcome-message">We're glad to have you here.</p>
-        <Link to={'/todos'}>
+        <Link to={`/todos`}>
             <button className="start-button">Get Started</button>
         </Link>
         <div className="container">

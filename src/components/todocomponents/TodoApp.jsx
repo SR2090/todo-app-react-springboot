@@ -8,6 +8,7 @@ import LoginComponent from './LoginComponent'
 import LogoutComponent from './LogoutComponent'
 import './TodoApp.css'
 import WelcomeComponent from './WelcomeComponent'
+import UpdateComponent from './UpdateComponent'
 import {useContextCustomHook} from './security/AuthContext'
 // Authprovider
 import AuthProvider from './security/AuthContext'
@@ -43,6 +44,10 @@ export default function TodoApp() {
                             <AuthenticatedComponents>
                                 <WelcomeComponent/>    
                             </AuthenticatedComponents>}></Route>
+                            <Route path='/update/:id' element={
+                            <AuthenticatedComponents>
+                                <UpdateComponent/>    
+                            </AuthenticatedComponents>}></Route>
                             <Route path='/todos' element={
                             <AuthenticatedComponents>
                                 <ListTodoComponent/>
@@ -52,7 +57,10 @@ export default function TodoApp() {
                             <AuthenticatedComponents>
                                 <LogoutComponent/>    
                             </AuthenticatedComponents>
+
                             }></Route>
+
+                            
 
                             <Route path='*' element={<ErrorComponent/>}></Route>
                         </Routes>
