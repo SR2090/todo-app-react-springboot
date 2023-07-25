@@ -1,6 +1,7 @@
 import {createContext, useContext, useState} from "react"
 import {executeBasicAuthenticationService} from "../ApiCalloutComponent/ApiCallout";
 import { apiClient } from "../ApiCalloutComponent/ApiClient";
+import { executeJwtAuthenticationService } from "../ApiCalloutComponent/JwtAPIService";
 // Create a context
 export const AuthContext = createContext();
 export const useContextCustomHook = () => useContext(AuthContext);
@@ -34,7 +35,7 @@ export default function AuthProvider({children}) {
         }
     }
 
-    async function loginTodo(username, password) {
+    async function loginTodoBasicAuthentication(username, password) {
         const basicAuthenticationToken = `Basic ` + window.btoa(username + ":" + password);
         try{
             const authResponse = await executeBasicAuthenticationService(basicAuthenticationToken);
@@ -53,6 +54,38 @@ export default function AuthProvider({children}) {
                     }
                 )
                 
+                return true;
+            }else{
+                console.log("EXECUTED ELSE BLOCK " + authResponse.data)
+                logoutTodo()
+                return false;
+            }
+        }catch(response) {
+            console.log(response);
+            logoutTodo()
+        }
+    }
+
+    async function loginTodo(username, password) {
+
+        try{
+            const authResponse = await executeJwtAuthenticationService(username, password);
+        
+            if(authResponse.status === 200) {
+                // console.log("EXECUTED "+ authResponse.data)
+                const bearerToken = `Bearer ` + authResponse.data.token;
+                console.log(bearerToken);
+                setAuthenticated(true);
+                setUserName(username);
+                setBasicAuthenticationToken(bearerToken);
+                
+                apiClient.interceptors.request.use(
+                    (config) => {
+                        console.log('intercepting and adding token')
+                        config.headers.Authorization = bearerToken;
+                        return config;
+                    }
+                )
                 return true;
             }else{
                 console.log("EXECUTED ELSE BLOCK " + authResponse.data)

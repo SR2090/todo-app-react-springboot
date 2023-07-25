@@ -8,7 +8,7 @@ import { useContextCustomHook } from './security/AuthContext';
 export default function LoginComponent() {
 
     const [username, setUserName] = useState("babi")
-    const [password, setPassword] = useState("password")
+    const [password, setPassword] = useState("dummy")
     const [isError, setisError] = useState(false);
     
     // Access to auth context using the custom hook
